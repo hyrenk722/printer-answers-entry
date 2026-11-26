@@ -14,8 +14,8 @@ MIN_CHARS = 1
 MAX_CHARS = 240
 
 
-def check_gate(line):
-    """Refuse anything the sealed gate would refuse."""
+def validate(line):
+    """Every gate rule in one place: text, not blank, 1-240 chars, one line."""
     if not isinstance(line, str):
         raise ValueError("the line must be a string")
     if line.strip() == "":
@@ -25,6 +25,11 @@ def check_gate(line):
     if "\n" in line or "\r" in line:
         raise ValueError("the line must fit on one line")
     return line
+
+
+def check_gate(line):
+    """Gate entry point — all checks are delegated to validate()."""
+    return validate(line)
 
 
 def main():
